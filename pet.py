@@ -1,4 +1,5 @@
 import random
+from object import InteractableObject
 
 SPRITES_PATH:str = "resources/sprites/"
 
@@ -128,12 +129,17 @@ class VirtualPet:
             self.happiness += 50
             return self.kick()
     
-    def kick(self) -> list[int]:
+    def kick(self, object:InteractableObject) -> None:
         x:int = random.randint(30, 50)
         y:int = random.randint(-70, -50)
         speed_vector:list[int] = [x, y] if self.is_Right else [-x, y]
+        object.set_speed_vector(speed_vector)
         self.happiness += 100
-        return speed_vector
+
+    def eat(self, object:InteractableObject) -> None:
+        self.happiness += 100
+        self.hunger -= 1000
+        object.destroy()
     
     def get_pet_sprite(self) -> str:
         return self.pet_sprite

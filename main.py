@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
 
         self.init_userInterface()
         self.init_virtualPet("Slugma", "slug", 1, FLOOR)
-        self.init_interactableObject("beach_ball", 1, 1)
+        self.init_interactableObject("beach_ball", "toy", 1, 1)
         self.init_internalClock()
         
     def update_environment(self):
@@ -117,10 +117,12 @@ class MainWindow(QMainWindow):
         self.object_location = self.object_label.geometry()
         self.pet_location = self.pet_label.geometry()
 
-        if (self.pet_location.contains(self.object_location)):
-            match self.object.object_type:
+        if self.pet_location.contains(self.object_location) and self.object.existis:
+            match self.object.object_name:
                 case "beach_ball":
-                    self.object.set_speed_vector(self.pet.kick())
+                    self.pet.kick(self.object)
+                case "food":
+                    self.pet.eat(self.object)
                 case _:
                     return
 
