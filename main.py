@@ -1,5 +1,4 @@
 import sys
-import json
 import ctypes
 import random
 from PyQt6 import QtCore
@@ -7,8 +6,8 @@ from PyQt6 import QtGui
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import QTimer, Qt
-from object import InteractableObject
-from pet import VirtualPet
+import InteractableObject
+import VirtualPet
 
 CLOCK_TICK:int = 33     # Clock refresh rate (in milliseconds)
 PET_SIZE:int = 150      # Size of the pet (in pixels)
@@ -145,8 +144,8 @@ class MainWindow(QMainWindow):
         self.pet_pixmap = QPixmap(self.pet.get_pet_sprite())
         self.status_pixmap = QPixmap(self.pet.get_status_sprite())
 
-    def init_interactableObject(self, type:str, x:int, y:int) -> None:
-        self.object = InteractableObject(type, x, y)
+    def init_interactableObject(self, name:str, type:str, x:int, y:int) -> None:
+        self.object = InteractableObject(name, type, x, y)
         self.object_pixmap = QPixmap(self.object.get_object_sprite())
         object_scaled_pixmap = self.object_pixmap.scaled(OBJ_SIZE, OBJ_SIZE, self.keepAspectRatio, self.transformationMode)
         self.object_label.setPixmap(object_scaled_pixmap)

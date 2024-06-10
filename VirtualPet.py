@@ -1,5 +1,5 @@
+import InteractableObject
 import random
-from object import InteractableObject
 
 SPRITES_PATH:str = "resources/sprites/"
 
