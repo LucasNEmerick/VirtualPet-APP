@@ -32,9 +32,15 @@ class VirtualPet:
 
     def tick(self) -> None:
         if not self.is_Sleeping: 
-            self.sleep += 1 if self.sleep < MAX_SLEEP else self.passOut()        
+            if self.sleep < MAX_SLEEP:
+                self.sleep += 1
+            else:
+                self.passOut()        
         else:
-            self.sleep -= 7 if self.sleep > 0 else self.wakeUp()
+            if self.sleep > 0:
+                self.sleep -= 7
+            else:
+                self.wakeUp()
 
         if self.hunger < MAX_HUNGER:
             self.hunger += 1

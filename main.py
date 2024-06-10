@@ -118,8 +118,11 @@ class MainWindow(QMainWindow):
         self.pet_location = self.pet_label.geometry()
 
         if (self.pet_location.contains(self.object_location)):
-            if self.object.object_type == "beach_ball":
-                self.object.set_speed_vector(self.pet.kick())
+            match self.object.object_type:
+                case "beach_ball":
+                    self.object.set_speed_vector(self.pet.kick())
+                case _:
+                    return
 
     def update_labels(self) -> None:
         self.pet_label.move(self.pet.current_position[0], self.pet.current_position[1])
