@@ -1,5 +1,6 @@
 import sys
 import json
+import ctypes
 import random
 from PyQt6 import QtCore
 from PyQt6 import QtGui
@@ -9,7 +10,6 @@ from PyQt6.QtCore import QTimer, Qt
 from object import InteractableObject
 from pet import VirtualPet
 
-RESOLUTION:list[int] = [1366, 768]
 CLOCK_TICK:int = 33     # Clock refresh rate (in milliseconds)
 PET_SIZE:int = 150      # Size of the pet (in pixels)
 STA_SIZE:int = 65       # Size of the pet's status (in pixels)
@@ -109,7 +109,7 @@ class MainWindow(QMainWindow):
 
             if self.object.current_position[1] == FLOOR+82:
                 if abs(self.object.horizontal_speed) > 2:
-                    self.horizontal_speed = round(self.object.horizontal_speed*0.9)
+                    self.horizontal_speed = round(self.object.horizontal_speed*0.7)
                 else:
                     self.object.horizontal_speed = 0
     
@@ -152,7 +152,7 @@ class MainWindow(QMainWindow):
     def init_userInterface(self) -> None:
         self.setWindowTitle("Virtual Pet")
         self.setWindowIcon(QtGui.QIcon("resources/sprites/slug_icon.png"))
-        self.setGeometry(0, 0, RESOLUTION[0], RESOLUTION[1])
+        self.setGeometry(0, 0, ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1))
         self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.setWindowOpacity(1)
