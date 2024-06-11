@@ -1,4 +1,4 @@
-import InteractableObject
+import Objects
 import random
 
 SPRITES_PATH:str = "resources/sprites/"
@@ -12,9 +12,9 @@ EDG_SLEEP:int = 20000       # Sleep threshold
 MAX_SPEED:int = 2           # Pet's base speed (in pixels)
 
 class VirtualPet:
-    def __init__(self, name:str, type:str, x:int, y:int) -> None:
-        self.creature_name:str = name
-        self.creature_type:str = type
+    def __init__(self, creature_name:str, creature_type:str, x:int, y:int) -> None:
+        self.creature_name:str = creature_name
+        self.creature_type:str = creature_type
         
         self.current_position:list[int] = [x, y]
         self.horizontal_speed:int = MAX_SPEED
@@ -28,7 +28,7 @@ class VirtualPet:
         self.is_Sleeping:bool = False
         self.is_Right:bool = True
         
-        self.pet_sprite:str = SPRITES_PATH + type +"_default_right.png"
+        self.pet_sprite:str = SPRITES_PATH + creature_type +"_default_right.png"
         self.status_sprite:str = SPRITES_PATH +"blank.png"
 
     def tick(self) -> None:
@@ -129,14 +129,14 @@ class VirtualPet:
             self.happiness += 50
             return self.kick()
     
-    def kick(self, object:InteractableObject) -> None:
+    def kick(self, object:Objects) -> None:
         x:int = random.randint(30, 50)
         y:int = random.randint(-70, -50)
         speed_vector:list[int] = [x, y] if self.is_Right else [-x, y]
         object.set_speed_vector(speed_vector)
         self.happiness += 100
 
-    def eat(self, object:InteractableObject) -> None:
+    def eat(self, object:Objects) -> None:
         self.happiness += 100
         self.hunger -= 1000
         object.destroy()

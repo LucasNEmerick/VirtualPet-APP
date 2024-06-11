@@ -1,18 +1,18 @@
 SPRITES_PATH:str = "resources/sprites/"
 
 class InteractableObject:
-    def __init__(self, name:str, type:str, x:int, y:int) -> None:
-        self.object_name:str = name
-        self.object_type:str = type
+    def __init__(self, object_name:str, object_type:str, x:int, y:int) -> None:
+        self.object_name:str = object_name
+        self.object_type:str = object_type
         self.existis:bool = True
         
         self.current_position:list[int] = [x, y]
         self.horizontal_speed:int = 0
         self.vertical_speed:int = 0
 
-        self.elasticity:float = 0.7 if name == "beach_ball" else 0.05
+        self.elasticity:float = 0.7 if object_name == "beach_ball" else 0.05
         
-        self.object_sprite:str = SPRITES_PATH + type +"_"+ name +".png"
+        self.object_sprite:str = SPRITES_PATH + object_type +"_"+ object_name +".png"
 
     def move(self) -> None:
         self.current_position[0] += self.horizontal_speed

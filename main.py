@@ -6,8 +6,8 @@ from PyQt6 import QtGui
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import QTimer, Qt
-import InteractableObject
-import VirtualPet
+from Objects import InteractableObject
+from Pets import VirtualPet
 
 CLOCK_TICK:int = 33     # Clock refresh rate (in milliseconds)
 PET_SIZE:int = 150      # Size of the pet (in pixels)
@@ -139,13 +139,13 @@ class MainWindow(QMainWindow):
         status_scaled_pixmap = self.status_pixmap.scaled(STA_SIZE, STA_SIZE, self.keepAspectRatio, self.transformationMode)
         self.status_label.setPixmap(status_scaled_pixmap)        
 
-    def init_virtualPet(self, name:str, type:str, x:int, y:int) -> None:
-        self.pet = VirtualPet(name, type, x, y)
+    def init_virtualPet(self, creature_name:str, creature_type:str, x_position:int, y_position:int) -> None:
+        self.pet = VirtualPet(creature_name, creature_type, x_position, y_position)
         self.pet_pixmap = QPixmap(self.pet.get_pet_sprite())
         self.status_pixmap = QPixmap(self.pet.get_status_sprite())
 
-    def init_interactableObject(self, name:str, type:str, x:int, y:int) -> None:
-        self.object = InteractableObject(name, type, x, y)
+    def init_interactableObject(self, object_name:str, object_type:str, x_position:int, y_position:int) -> None:
+        self.object = InteractableObject(object_name, object_type, x_position, y_position)
         self.object_pixmap = QPixmap(self.object.get_object_sprite())
         object_scaled_pixmap = self.object_pixmap.scaled(OBJ_SIZE, OBJ_SIZE, self.keepAspectRatio, self.transformationMode)
         self.object_label.setPixmap(object_scaled_pixmap)
